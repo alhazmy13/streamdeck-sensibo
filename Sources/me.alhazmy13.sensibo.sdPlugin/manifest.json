@@ -59,7 +59,7 @@
   "Category": "Sensibo",
   "CategoryIcon": "plugin/images/actions/category",
   "PropertyInspectorPath": "sensibo/index.html",
-  "URL": "https://www.elgato.com/gaming/stream-deck",
+  "URL": "https://github.com/alhazmy13/streamdeck-sensibo",
   "Version": "1.0",
   "DefaultWindowSize": [
     500,
