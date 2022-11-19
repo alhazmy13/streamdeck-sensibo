@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>me.alhazmy13.sensibo.action</title>
+    <meta charset="UTF-8" />
+    <!-- Import style sheets -->
+    <link rel="stylesheet" type="text/css" href="css/sdpi.css" />
+    <link rel="stylesheet" type="text/css" href="css/temperature.css" />
+    <link rel="stylesheet" type="text/css" href="css/sensibo.css" />
+    <!-- Import scripts -->
+    <script src="../plugin/js/utils.js"></script>
+    <script src="../plugin/js/api/api.js"></script>
+    <script src="js/tooltips.js"></script>
+    <script src="js/sensibo.js"></script>
+    <script src="js/power.js"></script>
+    <script src="js/fan.js"></script>
+    <script src="js/mode.js"></script>
+    <script src="js/temperature.js"></script>
+    <script src="js/main.js"></script>
+  </head>
+  <body>
+    <!-- Property Inspector -->
+    <div class="sdpi-wrapper" id="sensibo">
+      <!-- Bridge select -->
+      <div class="sdpi-item">
+        <div class="sdpi-item-label" id="apikey-label"></div>
+        <select class="sdpi-item-value select" id="apikey-select">
+          <option id="no-apikey" value="no-apikey"></option>
+          <option disabled></option>
+          <option id="add-apikey" value="add"></option>
+        </select>
+      </div>
+      <!-- Light/Group select -->
+      <div class="sdpi-item">
+        <div class="sdpi-item-label" id="ac-label"></div>
+        <select class="sdpi-item-value select" id="ac-select">
+          <optgroup id="ac">
+            <option id="no-ac" value="no-ac"></option>
+          </optgroup>
+        </select>
+      </div>
+      <!-- Placeholder for more UI elements -->
+      <div id="placeholder"></div>
+      <div id="placeholder-extra"></div>
+
+    </div>
+    <!-- Floating tooltips element -->
+    <div class="sdpi-info-label hidden" style="top: -1000px" data-value=""></div>
+  </body>
+</html>

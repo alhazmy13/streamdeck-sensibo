@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+
+# IDEs and editors
+/.idea
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+DistributionTool.exe

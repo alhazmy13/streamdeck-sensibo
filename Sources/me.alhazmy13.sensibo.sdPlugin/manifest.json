@@ -1,0 +1,81 @@
+{
+  "Actions": [
+    {
+      "Icon": "plugin/images/actions/power",
+      "Name": "On / Off",
+      "States": [
+        {
+          "Image": "plugin/images/icons/on",
+          "Name": "On"
+        },
+        {
+          "Image": "plugin/images/icons/off",
+          "Name": "Off"
+        }
+      ],
+      "Tooltip": "Turn the air conditioner on or off.",
+      "UUID": "me.alhazmy13.sensibo.power"
+    },
+    {
+      "Icon": "plugin/images/actions/temperature",
+      "Name": "Temperature",
+      "States": [
+        {
+          "Image": "plugin/images/icons/temperature"
+        }
+      ],
+      "Tooltip": "Set the temperature of your air conditioner.",
+      "UUID": "me.alhazmy13.sensibo.temperature"
+    },
+    {
+      "Icon": "plugin/images/actions/fan",
+      "Name": "Fan Level",
+      "States": [
+        {
+          "Image": "plugin/images/icons/fan"
+        }
+      ],
+      "Tooltip": "Set the fan level of your air conditioner.",
+      "UUID": "me.alhazmy13.sensibo.fan"
+    },
+    {
+      "Icon": "plugin/images/actions/mode",
+      "Name": "Mode",
+      "States": [
+        {
+          "Image": "plugin/images/icons/mode"
+        }
+      ],
+      "Tooltip": "Change the mode of your air conditioner.",
+      "UUID": "me.alhazmy13.sensibo.mode"
+    }
+  ],
+  "SDKVersion": 2,
+  "Author": "Alhazmy13",
+  "CodePath": "plugin/index.html",
+  "Description": "Control your Sensibo air conditioners.",
+  "Name": "Sensibo",
+  "Icon": "plugin/images/icons/plugin",
+  "Category": "Sensibo",
+  "CategoryIcon": "plugin/images/actions/category",
+  "PropertyInspectorPath": "sensibo/index.html",
+  "URL": "https://www.elgato.com/gaming/stream-deck",
+  "Version": "1.0",
+  "DefaultWindowSize": [
+    500,
+    650
+  ],
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "10.11"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "4.2"
+  }
+}

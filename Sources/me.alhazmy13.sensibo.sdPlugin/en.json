@@ -1,0 +1,63 @@
+{
+  "Name": "Sensibo",
+  "Category": "Sensibo",
+  "Description": "Control your Sensibo Air Conditioners.",
+  "me.alhazmy13.sensibo.power": {
+    "Name": "On / Off",
+    "Tooltip": "Turn Air Conditioner on or off.",
+    "States": [
+      {
+        "Name": "On"
+      },
+      {
+        "Name": "Off"
+      }
+    ]
+  },
+  "me.alhazmy13.sensibo.temperature": {
+    "Name": "Temperature",
+    "Tooltip": "Set the fan level of your air Conditioner."
+  },
+  "me.alhazmy13.sensibo.fan": {
+    "Name": "Fan Level",
+    "Tooltip": "Change the fan level of your air Conditioner."
+  },
+  "me.alhazmy13.sensibo.mode": {
+    "Name": "Mode",
+    "Tooltip": "Change the mode of your air Conditioner."
+  },
+  "Localization": {
+    "Sensibo": {
+      "ApiKey": "API Key",
+      "NoApiKey": "No API Key",
+      "AddApiKey": "Add New",
+      "AC": "Air conditioner",
+      "AcTitle": "AC",
+      "NoAc": "No AC",
+      "Mode": "Mode",
+      "Temperature": "Temperature",
+      "Steps": "Steps",
+      "Value": "Value",
+      "FanLevel": "Fan Level"
+    },
+    "Setup": {
+      "Intro": {
+        "Title": "Add API KEY",
+        "Description": "Add Sensibo API Key to control your Air Conditioners, you can create new key from below url",
+        "ApiKey": "API Key",
+        "Close": "Not Now",
+        "Check": "Validate key",
+        "Error": {
+          "Empty": "Please add the ip address of your bridge.",
+          "Invalid": "The entered key is not valid. Please check your input.",
+          "Unreachable": "Bridge is not reachable. Please check the ip address."
+        }
+      },
+      "Save": {
+        "Title": "Api key Added",
+        "Description": "The key has been saved sucessfully.",
+        "Save": "Done"
+      }
+    }
+  }
+}
