@@ -80,7 +80,7 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
             // Save global cache
             cache = jsonPayload;
 
-            // Load bridges and lights
+            // Load keys and ACs
 
             actions.loadApiKeys();
         }

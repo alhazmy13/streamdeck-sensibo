@@ -18,21 +18,21 @@ function TemperatureAction(inContext, inSettings) {
 
     // Public function called on key up event
     this.onKeyUp = (inContext, inSettings, inCoordinates, inUserDesiredState, inState) => {
-        // Check if any bridge is configured
+        // Check if any key is configured
         if (!('key' in inSettings)) {
             log('No key configured');
             showAlert(inContext);
             return;
         }
 
-        // Check if the configured bridge is in the cache
+        // Check if the configured key is in the cache
         if (!(inSettings.key in cache.data)) {
             log('Key ' + inSettings.key + ' not found in cache');
             showAlert(inContext);
             return;
         }
 
-        // Find the configured bridge
+        // Find the configured key
         let keyCache = cache.data[inSettings.key];
 
         // Check if any ac is configured
@@ -62,13 +62,13 @@ function TemperatureAction(inContext, inSettings) {
             showAlert(inContext);
             return;
         }
-        // Create a bridge instance
-        let bridge = new Api(keyCache.key);
+        // Create a key instance
+        let key = new Api(keyCache.key);
 
         // Create  ac instance
         let objCache, obj;
         objCache = keyCache.acs[inSettings.ac];
-        obj = new AC(bridge, objCache.id);
+        obj = new AC(key, objCache.id);
 
 
         // Check for multi action
@@ -116,18 +116,18 @@ function TemperatureAction(inContext, inSettings) {
         let settings = instance.getSettings();
         let context = instance.getContext();
 
-        // Check if any bridge is configured
+        // Check if any key is configured
         if (!('key' in settings)) {
             return;
         }
 
-        // Check if the configured bridge is in the cache
+        // Check if the configured key is in the cache
         if (!(settings.key in cache.data)) {
             return;
         }
 
-        // Find the configured bridge
-        let bridgeCache = cache.data[settings.key];
+        // Find the configured key
+        let keyCache = cache.data[settings.key];
 
         // Check if the ac was set for this action
         if (!('ac' in settings)) {
@@ -135,17 +135,17 @@ function TemperatureAction(inContext, inSettings) {
         }
 
         // Check if the configured ac or group is in the cache
-        if (!(settings.ac in bridgeCache.acs)) {
+        if (!(settings.ac in keyCache.acs)) {
             return;
         }
 
         let objCache;
-        objCache = bridgeCache.acs[settings.ac];
+        objCache = keyCache.acs[settings.ac];
         // Set the target state
-        let targetState = objCache.power;
+        let targetState = objCache.temperature;
 
         // Set the new action state
-        setActionState(context, targetState ? 0 : 1);
+        setTitle(inContext, targetState + '°C');
     }
 
     // Private function to set the state

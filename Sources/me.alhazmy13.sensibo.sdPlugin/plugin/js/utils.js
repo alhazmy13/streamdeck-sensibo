@@ -47,6 +47,18 @@ function requestGlobalSettings(inUUID) {
     }
 }
 
+
+// Request  settings for the action
+function getSettings(inUUID) {
+    if (websocket) {
+        websocket.send(JSON.stringify({
+            event: 'getSettings',
+            context: inUUID,
+        }));
+    }
+}
+
+
 // Log to the global log file
 function log(inMessage) {
     // Log to the developer console

@@ -5,9 +5,9 @@
  @license   This source code is licensed under the MIT-style license found in the LICENSE file.
  */
 
-// Prototype which represents a Philips Hue bridge
+// Prototype which represents a Sensibo API
 function Api(key = null) {
-    // Init Bridge
+    // Init key
     let instance = this;
 
     // Public function to retrieve the key
@@ -37,21 +37,20 @@ function Api(key = null) {
                         callback(false, message);
                     }
                 } else {
-                    callback(false, 'Bridge response is undefined or null.');
+                    callback(false, 'API response is undefined or null.');
                 }
             } else {
-                callback(false, 'Could not connect to the bridge.');
+                callback(false, 'Could not connect to the key.');
             }
         };
 
         xhr.onerror = () => {
-            callback(false, 'Unable to connect to the bridge.');
+            callback(false, 'Unable to connect to the API.');
         };
 
         xhr.ontimeout = () => {
-            callback(false, 'Connection to the bridge timed out.');
+            callback(false, 'Connection to the API timed out.');
         };
-
         xhr.send();
     };
 
@@ -93,7 +92,7 @@ function Api(key = null) {
                         callback(false, message);
                     }
                 } else {
-                    callback(false, 'Bridge response is undefined or null.');
+                    callback(false, 'API response is undefined or null.');
                 }
             } else {
                 callback(false, 'Unable to get objects of type ' + type + '.');
@@ -101,32 +100,34 @@ function Api(key = null) {
         };
 
         xhr.onerror = () => {
-            callback(false, 'Unable to connect to the bridge.');
+            callback(false, 'Unable to connect to the API.');
         };
 
         xhr.ontimeout = () => {
-            callback(false, 'Connection to the bridge timed out.');
+            callback(false, 'Connection to the API timed out.');
         };
-
         xhr.send();
     }
 
-    // Public function to retrieve the lights
+    // Public function to retrieve the ACs
     this.getACs = callback => {
         getMeetHues('ac', callback);
     };
 
 }
 
-// Static function to discover bridges
+// Static function to discover keys
 Api.discover = callback => {
     if (globalSettings.keys) {
-        callback(true, globalSettings.keys);
+        let keys = [];
+        Object.keys(globalSettings.keys).forEach(key => {
+            keys.push(new Api(key));
+        });
+        callback(true, keys);
+
     }
 };
 
-// Check if a Bridge is available under a certain IP address
-// If a username is set it will check that too
 Api.check = (key, callback) => {
     let url = `https://home.sensibo.com/api/v2/users/me/pods?apiKey=${key}`;
     let xhr = new XMLHttpRequest();
@@ -138,7 +139,7 @@ Api.check = (key, callback) => {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200 &&
             xhr.response !== undefined && xhr.response != null
         ) {
-            // at this point the bridge has been found and added to list
+            // at this point the key has been found and added to list
             callback(true, {
                 key: key,
                 id: key,
@@ -157,7 +158,7 @@ Api.check = (key, callback) => {
 
 
 // Prototype which represents a Philips Hue object
-function SensiboAPI(bridge = null, id = null, name = null, uid = null) {
+function SensiboAPI(key = null, id = null, name = null, uid = null) {
     // Init SensiboAPI
     let instance = this;
 
@@ -175,7 +176,7 @@ function SensiboAPI(bridge = null, id = null, name = null, uid = null) {
     };
 
     this.getApiKey = () => {
-        return bridge;
+        return key;
     };
 
     // Public function to retrieve the URL
@@ -188,7 +189,7 @@ function SensiboAPI(bridge = null, id = null, name = null, uid = null) {
         url = inURL;
     }
 
-    // Public function to set light state
+    // Public function to set ac state
     this.setState = (state, callback) => {
         // Check if the URL was set
         if (instance.getURL() == null) {
@@ -226,7 +227,7 @@ function SensiboAPI(bridge = null, id = null, name = null, uid = null) {
         };
 
         xhr.ontimeout = () => {
-            callback(false, 'Connection to the bridge timed out.');
+            callback(false, 'Connection to the API timed out.');
         };
 
         let data = JSON.stringify({newValue: state.value});
@@ -236,12 +237,12 @@ function SensiboAPI(bridge = null, id = null, name = null, uid = null) {
 
 
 // Prototype which represents an illumination
-function IlApi(bridge = null, id = null, name = null, uid = null, power = null, temperature = null, fanLevel = null, mode = null) {
+function IlApi(key = null, id = null, name = null, uid = null, power = null, temperature = null, fanLevel = null, mode = null) {
     // Init IlApi
     let instance = this;
 
     // Inherit from SensiboAPI
-    SensiboAPI.call(this, bridge, id, name, uid);
+    SensiboAPI.call(this, key, id, name, uid);
 
     // Public function to retrieve the power state
     this.getPower = () => {
@@ -294,10 +295,10 @@ function IlApi(bridge = null, id = null, name = null, uid = null, power = null, 
     };
 }
 
-// Prototype which represents a light
-function AC(bridge = null, id = null, name = null, uid = null, power = null, temperature = null, fanLevel = null, mode = null) {
+// Prototype which represents a ac
+function AC(key = null, id = null, name = null, uid = null, power = null, temperature = null, fanLevel = null, mode = null) {
     // Inherit from IlApi
-    IlApi.call(this, bridge, id, name, uid, power, temperature, fanLevel, mode);
+    IlApi.call(this, key, id, name, uid, power, temperature, fanLevel, mode);
     // Set the URL
     this.setURL(`https://home.sensibo.com/api/v2/pods/${id}/acStates`);
 }

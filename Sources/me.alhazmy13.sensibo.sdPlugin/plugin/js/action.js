@@ -42,7 +42,7 @@ function Action(inContext, inSettings) {
 
     // Private function to set the defaults
     function setDefaults(inCallback) {
-        // If at least one bridge is paired
+        // If at least one key is paired
         if (!(Object.keys(cache.data).length > 0)) {
             // If a callback function was given
             if (inCallback !== undefined) {
@@ -66,43 +66,31 @@ function Action(inContext, inSettings) {
         else if (instance instanceof ModeAction) {
             action = 'me.alhazmy13.sensibo.mode';
         }
-        // If no bridge is set for this action
+        // If no key is set for this action
         if (!('key' in settings)) {
-            // Sort the bridges alphabetically
-            let bridgeIDsSorted = Object.keys(cache.data).sort((a, b) => {
-                return cache.data[a].name.localeCompare(cache.data[b].name);
+            // Sort the keys alphabetically
+            let keyIDsSorted = Object.keys(cache.data).sort((a, b) => {
+                return cache.data[a].key.localeCompare(cache.data[b].key);
             });
 
-            // Set the bridge automatically to the first one
-            settings.bridge = bridgeIDsSorted[0];
+            // Set the key automatically to the first one
+            settings.key = keyIDsSorted[0];
 
             // Save the settings
             saveSettings(action, inContext, settings);
         }
 
-        // Find the configured bridge
-        let keyCache = cache.data[settings.bridge];
+        // Find the configured key
+        let keyCache = cache.data[settings.key];
 
         // If no ac is set for this action
         if (!('ac' in settings)) {
             // First try to set a group, because scenes only support groups
-            // If the bridge has at least one group
-            if (Object.keys(keyCache.groups).length > 0) {
-                // Sort the groups automatically
-                let groupIDsSorted = Object.keys(keyCache.groups).sort((a, b) => {
-                    return keyCache.groups[a].name.localeCompare(keyCache.groups[b].name);
-                });
-
-                // Set the ac automatically to the first group
-                settings.ac = groupIDsSorted[0];
-
-                // Save the settings
-                saveSettings(action, inContext, settings);
-            }
-            else if (Object.keys(keyCache.acs).length > 0) {
+            // If the key has at least one group
+            if (Object.keys(keyCache.acs).length > 0) {
                 // Sort the acs automatically
                 let acIDsSorted = Object.keys(keyCache.acs).sort((a, b) => {
-                    return keyCache.acs[a].name.localeCompare(keyCache.acs[b].name);
+                    return keyCache.acs[a].id.localeCompare(keyCache.acs[b].id);
                 });
 
                 // Set the ac automatically to the first ac

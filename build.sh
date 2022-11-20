@@ -1,0 +1,1 @@
+./DistributionTool.exe -b -i Sources/me.alhazmy13.sensibo.sdPlugin -o ./Release

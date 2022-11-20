@@ -18,22 +18,22 @@ function PowerAction(inContext, inSettings) {
 
     // Public function called on key up event
     this.onKeyUp = (inContext, inSettings, inCoordinates, inUserDesiredState, inState) => {
-        // Check if any bridge is configured
-        log(inSettings);
+        // Check if any key is configured
+        log('Power Action onKeyUp');
         if (!('key' in inSettings)) {
             log('No key configured');
             showAlert(inContext);
             return;
         }
 
-        // Check if the configured bridge is in the cache
+        // Check if the configured key is in the cache
         if (!(inSettings.key in cache.data)) {
             log('Key ' + inSettings.key + ' not found in cache');
             showAlert(inContext);
             return;
         }
 
-        // Find the configured bridge
+        // Find the configured key
         let keyCache = cache.data[inSettings.key];
 
         // Check if any ac is configured
@@ -50,13 +50,13 @@ function PowerAction(inContext, inSettings) {
             return;
         }
 
-        // Create a bridge instance
-        let bridge = new Api(keyCache.key);
+        // Create a key instance
+        let key = new Api(keyCache.key);
 
         // Create  ac instance
         let objCache, obj;
         objCache = keyCache.acs[inSettings.ac];
-        obj = new AC(bridge, objCache.id);
+        obj = new AC(key, objCache.id);
 
 
         // Check for multi action
@@ -71,7 +71,7 @@ function PowerAction(inContext, inSettings) {
         // Set ac or group state
         obj.setPower(targetState, (success, error) => {
             if (success) {
-                setActionState(inContext, targetState ? 0 : 1);
+                setActionState(inContext, 2);
                 objCache.power = targetState;
                 log(objCache);
             } else {
@@ -98,47 +98,40 @@ function PowerAction(inContext, inSettings) {
     };
 
     function updateState() {
-        log('updateState')
         // Get the settings and the context
         let settings = instance.getSettings();
         let context = instance.getContext();
 
-        // Check if any bridge is configured
+        // Check if any key is configured
         if (!('key' in settings)) {
             return;
         }
 
-        // Check if the configured bridge is in the cache
+        // Check if the configured key is in the cache
         if (!(settings.key in cache.data)) {
             return;
         }
 
-        log('updateState3')
 
-        // Find the configured bridge
-        let bridgeCache = cache.data[settings.key];
+        // Find the configured key
+        let keyCache = cache.data[settings.key];
 
         // Check if the ac was set for this action
         if (!('ac' in settings)) {
             return;
         }
 
-        log('updateState4')
-        log(bridgeCache.acs)
-        log(settings.ac)
-
         // Check if the configured ac or group is in the cache
-        if (!(settings.ac in bridgeCache.acs)) {
+        if (!(settings.ac in keyCache.acs)) {
             return;
         }
 
-        log('updateState5')
-
         let objCache;
-        objCache = bridgeCache.acs[settings.ac];
+        objCache = keyCache.acs[settings.ac];
 
         // Set the target state
         let targetState = objCache.power;
+
 
         // Set the new action state
         setActionState(context, targetState ? 0 : 1);

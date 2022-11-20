@@ -32,8 +32,8 @@
       "NoApiKey": "No API Key",
       "AddApiKey": "Add New",
       "AC": "Air conditioner",
-      "AcTitle": "AC",
-      "NoAc": "No AC",
+      "AcTitle": "Air conditioner",
+      "NoAc": "No Air conditioner available",
       "Mode": "Mode",
       "Temperature": "Temperature",
       "Steps": "Steps",
@@ -48,9 +48,8 @@
         "Close": "Not Now",
         "Check": "Validate key",
         "Error": {
-          "Empty": "Please add the ip address of your bridge.",
-          "Invalid": "The entered key is not valid. Please check your input.",
-          "Unreachable": "Bridge is not reachable. Please check the ip address."
+          "Empty": "Please add the API key for your sensibo account.",
+          "Invalid": "The entered key is not valid. Please check your input."
         }
       },
       "Save": {

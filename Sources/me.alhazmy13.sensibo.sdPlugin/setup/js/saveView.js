@@ -24,8 +24,8 @@ function loadSaveView() {
     document.getElementById('close').addEventListener('click', close);
     document.addEventListener('enterPressed', close);
 
-    // Save the bridge
-    window.opener.document.dispatchEvent(new CustomEvent('saveBridge', {
+    // Save the key
+    window.opener.document.dispatchEvent(new CustomEvent('saveKey', {
         detail: {
             key: key.getKey(),
         }
