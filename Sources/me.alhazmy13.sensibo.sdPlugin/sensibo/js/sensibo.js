@@ -157,7 +157,9 @@ function Sensibo(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
 
         if (instance instanceof Temperature) {
             //Load the scenes
-            instance.loadSteps(settings.temp_type);
+            instance.loadSteps(settings.temp_mode);
+        }else if(instance instanceof Fan){
+            instance.loadExtraPlaceHolder(settings.fan_mode);
         }
     }
 

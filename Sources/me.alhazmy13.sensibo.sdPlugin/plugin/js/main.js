@@ -34,7 +34,7 @@ function connectElgatoStreamDeckSocket(
   // Web socket is connected
   websocket.onopen = () => {
     // Register plugin to Stream Deck
-    registerPluginOrPI(inRegisterEvent, inPluginUUID);
+    registerPluginOrSensibo(inRegisterEvent, inPluginUUID);
 
     // Request the global settings of the plugin
     requestGlobalSettings(inPluginUUID);
@@ -83,7 +83,6 @@ function connectElgatoStreamDeckSocket(
 
     // Key up event
     if (event === 'keyUp') {
-      log('Main keyUp');
       settings = jsonPayload['settings'];
       let coordinates = jsonPayload['coordinates'];
       let userDesiredState = jsonPayload['userDesiredState'];
@@ -101,16 +100,14 @@ function connectElgatoStreamDeckSocket(
       }
 
       // Refresh the cache
-      cache.refresh();
+      cache.refresh(context);
     } else if (event === 'willAppear') {
-      log('Main willAppear');
-
       settings = jsonPayload['settings'];
 
       // If this is the first visible action
       if (Object.keys(actions).length === 0) {
         // Start polling
-        cache.startPolling();
+        cache.startPolling(context);
       }
 
       // Add current instance is not in actions array
@@ -127,7 +124,6 @@ function connectElgatoStreamDeckSocket(
         }
       }
     } else if (event === 'willDisappear') {
-      log('Main willDisappear');
       // Remove current instance from array
       if (context in actions) {
         delete actions[context];
@@ -139,7 +135,6 @@ function connectElgatoStreamDeckSocket(
         cache.stopPolling();
       }
     } else if (event === 'didReceiveGlobalSettings') {
-      log('Main didReceiveGlobalSettings');
 
       // Set global settings
       globalSettings = jsonPayload['settings'];
@@ -147,31 +142,29 @@ function connectElgatoStreamDeckSocket(
       // If at least one action is active
       if (Object.keys(actions).length > 0) {
         // Refresh the cache
-        cache.refresh();
+        cache.refresh(context);
       }
     } else if (event === 'didReceiveSettings') {
-      log('Main didReceiveSettings');
-
       settings = jsonPayload['settings'];
-      let oldSettings;
+
       // Set settings
       if (context in actions) {
-        oldSettings = actions[context].getSettings();
         actions[context].setSettings(settings);
       }
-      cache.refresh();
+      cache.refresh(context);
       // }
     } else if (event === 'propertyInspectorDidAppear') {
       // Send cache to PI
       sendToPropertyInspector(action, context, cache.data);
     } else if (event === 'sendToPlugin') {
       let sensiboEvent = jsonPayload['sensiboEvent'];
-
+      log(jsonPayload);
       if (sensiboEvent === 'valueChanged') {
         if (action !== 'me.alhazmy13.sensibo.power') {
-          // Send manual onKeyUp event to action
+          let state = jsonPayload['state'];
+          // Send manual state event to action
           if (context in actions) {
-            actions[context].onKeyUp(context);
+            actions[context].onStateChanged(context, state);
           }
         }
       }

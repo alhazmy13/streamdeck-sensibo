@@ -55,7 +55,7 @@ function Api(key = null) {
     };
 
     // Private function to retrieve objects
-    function getMeetHues(type, callback) {
+    function getACsFromSensibo(type, callback) {
         let url;
 
         if (type === 'ac') {
@@ -82,7 +82,7 @@ function Api(key = null) {
                         result.forEach(obj => {
 
                             if (type === 'ac') {
-                                objects.push(new AC(instance, obj['id'], obj['room']['name'], obj['room']['uid'], obj['acState']['on'], obj['acState']['targetTemperature'], obj['acState']['fanLevel'], obj['acState']['mode']));
+                                objects.push(new AC(instance, obj['id'], obj['room']['name'], obj['room']['uid'], obj['acState']['on'], obj['acState']['targetTemperature'], obj['acState']['fanLevel'], obj['acState']['mode'],  obj['acState']['temperatureUnit']));
                             }
                         });
 
@@ -111,7 +111,7 @@ function Api(key = null) {
 
     // Public function to retrieve the ACs
     this.getACs = callback => {
-        getMeetHues('ac', callback);
+        getACsFromSensibo('ac', callback);
     };
 
 }
@@ -237,7 +237,7 @@ function SensiboAPI(key = null, id = null, name = null, uid = null) {
 
 
 // Prototype which represents an illumination
-function IlApi(key = null, id = null, name = null, uid = null, power = null, temperature = null, fanLevel = null, mode = null) {
+function IlApi(key = null, id = null, name = null, uid = null, power = null, temperature = null, fanLevel = null, mode = null, temperatureUnit= null) {
     // Init IlApi
     let instance = this;
 
@@ -268,6 +268,10 @@ function IlApi(key = null, id = null, name = null, uid = null, power = null, tem
         return uid;
     };
 
+    this.getTemperatureUnit = () => {
+        return temperatureUnit;
+    };
+
     // Public function to retrieve the temperature
     this.getTemperature = () => {
         return temperature;
@@ -296,9 +300,9 @@ function IlApi(key = null, id = null, name = null, uid = null, power = null, tem
 }
 
 // Prototype which represents a ac
-function AC(key = null, id = null, name = null, uid = null, power = null, temperature = null, fanLevel = null, mode = null) {
+function AC(key = null, id = null, name = null, uid = null, power = null, temperature = null, fanLevel = null, mode = null, temperatureUnit = null) {
     // Inherit from IlApi
-    IlApi.call(this, key, id, name, uid, power, temperature, fanLevel, mode);
+    IlApi.call(this, key, id, name, uid, power, temperature, fanLevel, mode, temperatureUnit);
     // Set the URL
     this.setURL(`https://home.sensibo.com/api/v2/pods/${id}/acStates`);
 }

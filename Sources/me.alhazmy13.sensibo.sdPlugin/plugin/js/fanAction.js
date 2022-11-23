@@ -5,6 +5,13 @@
  @license   This source code is licensed under the MIT-style license found in the LICENSE file.
  */
 
+let FanNextMode = {
+    'auto': 'low',
+    'low': 'medium',
+    'medium': 'high',
+    'high': 'auto'
+}
+
 // Prototype which represents a power action
 function FanAction(inContext, inSettings) {
     // Init PowerAction
@@ -16,10 +23,28 @@ function FanAction(inContext, inSettings) {
     // Update the state
     updateState();
 
+
+    this.onStateChanged = (inContext, inState) => {
+        if (!inState) {
+            return;
+        }
+
+        if (!('fan_mode' in inState)) {
+            return;
+        }
+
+        if (instance.fand_mode === 'toggle') {
+            updateState();
+        } else {
+            if ('fan_level' in inState) {
+                setActionState(inContext, inState.fan_level);
+            }
+
+        }
+    }
     // Public function called on key up event
     this.onKeyUp = (inContext, inSettings, inCoordinates, inUserDesiredState, inState) => {
         // Check if any key is configured
-        log(inSettings);
         if (!('key' in inSettings)) {
             log('No key configured');
             showAlert(inContext);
@@ -61,17 +86,25 @@ function FanAction(inContext, inSettings) {
 
         // Check for multi action
         let targetState;
-        targetState = inSettings.fan_level;
+        if ('fan_mode' in inSettings && inSettings.fan_mode === 'toggle') {
+            targetState = FanNextMode[objCache.fanLevel]
+        } else {
+            targetState = inSettings.fan_level;
+        }
 
-        log(targetState);
         // Set ac or group state
         obj.setFanLevel(targetState, (success, error) => {
             if (success) {
-                setActionState(inContext, targetState ? 0 : 1);
-                log(objCache);
+                if ('key' in inSettings && 'ac' in inSettings && 'acs' in cache.data[inSettings.key]) {
+                    if ('fanLevel' in cache.data[inSettings.key].acs[inSettings.ac]) {
+                        cache.data[inSettings.key].acs[inSettings.ac].fanLevel = targetState;
+                    }
+                }
+                setActionState(inContext, targetState);
+                log(keyCache.acs[inSettings.ac]);
+                showOk(inContext);
             } else {
                 log(error);
-                setActionState(inContext, inState);
                 showAlert(inContext);
             }
         });
@@ -125,14 +158,18 @@ function FanAction(inContext, inSettings) {
         objCache = keyCache.acs[settings.ac];
 
         // Set the target state
-        let targetState = objCache.power;
+        let targetState = objCache.fanLevel;
 
         // Set the new action state
-        setActionState(context, targetState ? 0 : 1);
+        if ('fan_mode' in settings && settings.fan_mode === 'toggle') {
+            setActionState(context, targetState);
+        }
+        // setImage(context, );
     }
+
 
     // Private function to set the state
     function setActionState(inContext, inState) {
-        setState(inContext, inState);
+        setImage(inContext, FanIconState[inState]);
     }
 }

@@ -60,7 +60,7 @@
   "CategoryIcon": "plugin/images/actions/category",
   "PropertyInspectorPath": "sensibo/index.html",
   "URL": "https://github.com/alhazmy13/streamdeck-sensibo",
-  "Version": "1.0",
+  "Version": "1.1.0",
   "DefaultWindowSize": [
     500,
     650

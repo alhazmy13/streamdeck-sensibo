@@ -42,7 +42,7 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
     // WebSocket is connected, send message
     websocket.onopen = () => {
         // Register property inspector to Stream Deck
-        registerPluginOrPI(inRegisterEvent, inUUID);
+        registerPluginOrSensibo(inRegisterEvent, inUUID);
 
         // Request the global settings of the plugin
         requestGlobalSettings(inUUID);

@@ -37,8 +37,14 @@
       "Mode": "Mode",
       "Temperature": "Temperature",
       "Steps": "Steps",
+      "Type": "Type",
+      "Toggle": "Toggle",
       "Value": "Value",
-      "FanLevel": "Fan Level"
+      "FanLevel": "Fan Level",
+      "LivePreview": "Live Preview",
+      "On": "On",
+      "Set": "Set",
+      "Adjust": "Adjust"
     },
     "Setup": {
       "Intro": {

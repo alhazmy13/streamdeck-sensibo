@@ -1,28 +1,28 @@
 /**
-@file      utils.js
-@brief     Sensibo Plugin
-@copyright (c) 2022, Abdullah Alhazmy.
-@license   This source code is licensed under the MIT-style license found in the LICENSE file.
-*/
+ @file      utils.js
+ @brief     Sensibo Plugin
+ @copyright (c) 2022, Abdullah Alhazmy.
+ @license   This source code is licensed under the MIT-style license found in the LICENSE file.
+ */
 // Register the plugin or PI
-function registerPluginOrPI(inEvent, inUUID) {
+function registerPluginOrSensibo(inEvent, inUUID) {
     if (websocket) {
         websocket.send(JSON.stringify({
             event: inEvent,
             uuid: inUUID,
         }));
-	}
+    }
 }
 
 // Save settings
 function saveSettings(inAction, inUUID, inSettings) {
     if (websocket) {
         websocket.send(JSON.stringify({
-             action: inAction,
-             event: 'setSettings',
-             context: inUUID,
-             payload: inSettings,
-         }));
+            action: inAction,
+            event: 'setSettings',
+            context: inUUID,
+            payload: inSettings,
+        }));
     }
 }
 
@@ -30,10 +30,10 @@ function saveSettings(inAction, inUUID, inSettings) {
 function saveGlobalSettings(inUUID) {
     if (websocket) {
         websocket.send(JSON.stringify({
-             event: 'setGlobalSettings',
-             context: inUUID,
-             payload: globalSettings,
-         }));
+            event: 'setGlobalSettings',
+            context: inUUID,
+            payload: globalSettings,
+        }));
     }
 }
 
@@ -54,6 +54,20 @@ function getSettings(inUUID) {
         websocket.send(JSON.stringify({
             event: 'getSettings',
             context: inUUID,
+        }));
+    }
+}
+
+// set action image
+function setImage(inUUID, img) {
+    if (websocket) {
+        websocket.send(JSON.stringify({
+            event: "setImage",
+            context: inUUID,
+            payload: {
+                image: img,
+                target: "both",
+            }
         }));
     }
 }
@@ -82,6 +96,16 @@ function showAlert(inUUID) {
     if (websocket) {
         websocket.send(JSON.stringify({
             event: 'showAlert',
+            context: inUUID,
+        }));
+    }
+}
+
+// Show ok icon on the key
+function showOk(inUUID) {
+    if (websocket) {
+        websocket.send(JSON.stringify({
+            event: 'showOk',
             context: inUUID,
         }));
     }
@@ -137,6 +161,7 @@ function sendToPlugin(inAction, inContext, inData) {
     }
 }
 
+
 // Load the localizations
 function getLocalization(inLanguage, inCallback) {
     let url = `../${inLanguage}.json`;
@@ -149,12 +174,10 @@ function getLocalization(inLanguage, inCallback) {
                 let data = JSON.parse(xhr.responseText);
                 let localization = data['Localization'];
                 inCallback(true, localization);
-            }
-            catch(e) {
+            } catch (e) {
                 inCallback(false, 'Localizations is not a valid json.');
             }
-        }
-        else {
+        } else {
             inCallback(false, 'Could not load the localizations.');
         }
     };

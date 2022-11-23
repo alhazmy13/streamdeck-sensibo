@@ -43,13 +43,16 @@ function Mode(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
 
 
     function modeValueChanged(inEvent) {
-        log(inEvent.target.value)
-        settings.mode = inEvent.target.value;
+        let mode = inEvent.target.value;
+        settings.mode = mode;
         instance.saveSettings();
 
         // Inform the plugin that a new ac is set
         instance.sendToPlugin({
             sensiboEvent: 'valueChanged',
+            state: {
+                mode: mode
+            }
         });
     }
 

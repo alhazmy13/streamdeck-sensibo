@@ -16,6 +16,19 @@ function ModeAction(inContext, inSettings) {
     // Update the state
     updateState();
 
+
+    this.onStateChanged = (inContext, inState) => {
+        if (!inState) {
+            return;
+        }
+
+        if (!('mode' in inState)) {
+            return;
+        }
+
+        setActionState(inContext, inState.mode);
+    }
+
     // Public function called on key up event
     this.onKeyUp = (inContext, inSettings, inCoordinates, inUserDesiredState, inState) => {
         // Check if any key is configured
@@ -107,32 +120,20 @@ function ModeAction(inContext, inSettings) {
             return;
         }
 
-
-        // Find the configured key
-        let keyCache = cache.data[settings.key];
-
         // Check if the ac was set for this action
-        if (!('ac' in settings)) {
+        if (!('mode' in settings)) {
             return;
         }
-        // Check if the configured ac or group is in the cache
-        if (!(settings.ac in keyCache.acs)) {
-            return;
-        }
-
-
-        let objCache;
-        objCache = keyCache.acs[settings.ac];
 
         // Set the target state
-        let targetState = objCache.power;
+        let targetState = settings.mode;
 
         // Set the new action state
-        setActionState(context, targetState ? 0 : 1);
+        setActionState(context, targetState);
     }
 
     // Private function to set the state
     function setActionState(inContext, inState) {
-        setState(inContext, inState);
+        setImage(inContext, ModeIconState[inState]);
     }
 }
