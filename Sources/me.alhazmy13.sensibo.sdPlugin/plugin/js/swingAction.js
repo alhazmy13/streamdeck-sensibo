@@ -34,6 +34,7 @@ function SwingAction(inContext, inSettings) {
         if (instance.swing_mode === 'toggle') {
             updateState();
         } else {
+            log("HOLA")
             if ('swing_state' in inState) {
                 setActionState(inContext, inState.swing_state);
             }

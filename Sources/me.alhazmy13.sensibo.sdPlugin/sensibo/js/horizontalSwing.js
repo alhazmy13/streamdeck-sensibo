@@ -42,7 +42,7 @@ function HorizontalSwing(inContext, inLanguage, inStreamDeckVersion, inPluginVer
                         <label for="set" class="sdpi-item-label"><span></span>Set</label>
                     </div>
                     <div class="sdpi-item-child">
-                        <input id="toggle" type="radio" value="toggle" name="fan-mode-type">
+                        <input id="toggle" type="radio" value="toggle" name="swing-mode-type">
                         <label for="toggle" class="sdpi-item-label"><span></span>Toggle</label>
                     </div>
                 </div>

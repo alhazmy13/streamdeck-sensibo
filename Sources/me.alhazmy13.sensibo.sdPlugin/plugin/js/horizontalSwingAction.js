@@ -5,7 +5,7 @@
  @license   This source code is licensed under the MIT-style license found in the LICENSE file.
  */
 
-let SwingNextMode = {
+let HorizontalSwingNextMode = {
     'stopped': 'rangeful',
     'rangeful': 'stopped'
 }
@@ -85,7 +85,7 @@ function HorizontalSwingAction(inContext, inSettings) {
         // Check for multi action
         let targetState;
         if ('horizontal_swing_mode' in inSettings && inSettings.horizontal_swing_mode === 'toggle') {
-            targetState = SwingNextMode[objCache.horizontalSwing]
+            targetState = HorizontalSwingNextMode[objCache.horizontalSwing]
         } else {
             targetState = inSettings.horizontal_swing_state;
         }
