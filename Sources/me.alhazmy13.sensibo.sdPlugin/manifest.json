@@ -61,11 +61,11 @@
       "UUID": "me.alhazmy13.sensibo.swing"
     },
     {
-      "Icon": "plugin/images/actions/horizontal_swing",
+      "Icon": "plugin/images/actions/swing_horizontal",
       "Name": "Horizontal Swing",
       "States": [
         {
-          "Image": "plugin/images/icons/horizontal_swing"
+          "Image": "plugin/images/icons/swing_horizontal"
         }
       ],
       "Tooltip": "Change the horizontal swing of your air conditioner.",
