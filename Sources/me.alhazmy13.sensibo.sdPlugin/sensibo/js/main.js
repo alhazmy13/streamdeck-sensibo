@@ -61,7 +61,7 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
         actions = new Mode(inUUID, language, streamDeckVersion, pluginVersion);
     } else if (action === 'me.alhazmy13.sensibo.swing') {
         actions = new Swing(inUUID, language, streamDeckVersion, pluginVersion);
-    } else if (action === 'me.alhazmy13.sensibo.horizontal_swing') {
+    } else if (action === 'me.alhazmy13.sensibo.horizontal-swing') {
         actions = new HorizontalSwing(inUUID, language, streamDeckVersion, pluginVersion);
     }
     websocket.onmessage = msg => {

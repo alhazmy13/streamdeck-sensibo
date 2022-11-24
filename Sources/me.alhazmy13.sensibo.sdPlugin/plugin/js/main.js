@@ -62,7 +62,7 @@ function connectElgatoStreamDeckSocket(
                     } else if (actions[inContext] instanceof SwingAction) {
                         action = 'me.alhazmy13.sensibo.swing';
                     } else if (actions[inContext] instanceof HorizontalSwingAction) {
-                        action = 'me.alhazmy13.sensibo.horizontal_swing';
+                        action = 'me.alhazmy13.sensibo.horizontal-swing';
                     }
 
                     // Inform Action of new cache
@@ -127,7 +127,7 @@ function connectElgatoStreamDeckSocket(
                     actions[context] = new ModeAction(context, settings);
                 } else if (action === 'me.alhazmy13.sensibo.swing') {
                     actions[context] = new SwingAction(context, settings);
-                } else if (action === 'me.alhazmy13.sensibo.horizontal_swing') {
+                } else if (action === 'me.alhazmy13.sensibo.horizontal-swing') {
                     actions[context] = new HorizontalSwingAction(context, settings);
                 }
             }

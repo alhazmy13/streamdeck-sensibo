@@ -65,7 +65,7 @@ function Action(inContext, inSettings) {
         } else if (instance instanceof SwingAction) {
             action = 'me.alhazmy13.sensibo.swing';
         } else if (instance instanceof HorizontalSwingAction) {
-            action = 'me.alhazmy13.sensibo.horizontal_swing';
+            action = 'me.alhazmy13.sensibo.horizontal-swing';
         }
         // If no key is set for this action
         if (!('key' in settings)) {

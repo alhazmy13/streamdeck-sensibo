@@ -69,7 +69,7 @@
         }
       ],
       "Tooltip": "Change the horizontal swing of your air conditioner.",
-      "UUID": "me.alhazmy13.sensibo.horizontal_swing"
+      "UUID": "me.alhazmy13.sensibo.horizontal-swing"
     }
   ],
   "SDKVersion": 2,
