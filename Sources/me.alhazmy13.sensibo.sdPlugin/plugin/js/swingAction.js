@@ -1,19 +1,17 @@
 /**
- @file      fanAction.js
+ @file      swingAction.js
  @brief     Sensibo Plugin
  @copyright (c) 2022, Abdullah Alhazmy.
  @license   This source code is licensed under the MIT-style license found in the LICENSE file.
  */
 
-let FanNextMode = {
-    'auto': 'low',
-    'low': 'medium',
-    'medium': 'high',
-    'high': 'auto'
+let SwingNextMode = {
+    'stopped': 'rangeful',
+    'rangeful': 'stopped'
 }
 
 // Prototype which represents a power action
-function FanAction(inContext, inSettings) {
+function SwingAction(inContext, inSettings) {
     // Init PowerAction
     let instance = this;
 
@@ -29,15 +27,16 @@ function FanAction(inContext, inSettings) {
             return;
         }
 
-        if (!('fan_mode' in inState)) {
+        if (!('swing_mode' in inState)) {
             return;
         }
 
-        if (instance.fan_mode === 'toggle') {
+        if (instance.swing_mode === 'toggle') {
             updateState();
         } else {
-            if ('fan_level' in inState) {
-                setActionState(inContext, inState.fan_level);
+            log("HOLA")
+            if ('swing_state' in inState) {
+                setActionState(inContext, inState.swing_state);
             }
 
         }
@@ -86,18 +85,18 @@ function FanAction(inContext, inSettings) {
 
         // Check for multi action
         let targetState;
-        if ('fan_mode' in inSettings && inSettings.fan_mode === 'toggle') {
-            targetState = FanNextMode[objCache.fanLevel]
+        if ('swing_mode' in inSettings && inSettings.swing_mode === 'toggle') {
+            targetState = SwingNextMode[objCache.swing]
         } else {
-            targetState = inSettings.fan_level;
+            targetState = inSettings.swing_state;
         }
 
         // Set ac or group state
-        obj.setFanLevel(targetState, (success, error) => {
+        obj.setSwing(targetState, (success, error) => {
             if (success) {
                 if ('key' in inSettings && 'ac' in inSettings && 'acs' in cache.data[inSettings.key]) {
-                    if ('fanLevel' in cache.data[inSettings.key].acs[inSettings.ac]) {
-                        cache.data[inSettings.key].acs[inSettings.ac].fanLevel = targetState;
+                    if ('swing' in cache.data[inSettings.key].acs[inSettings.ac]) {
+                        cache.data[inSettings.key].acs[inSettings.ac].swing = targetState;
                     }
                 }
                 setActionState(inContext, targetState);
@@ -158,10 +157,10 @@ function FanAction(inContext, inSettings) {
         objCache = keyCache.acs[settings.ac];
 
         // Set the target state
-        let targetState = objCache.fanLevel;
+        let targetState = objCache.swing;
 
         // Set the new action state
-        if ('fan_mode' in settings && settings.fan_mode === 'toggle') {
+        if ('swing_mode' in settings && settings.swing_mode === 'toggle') {
             setActionState(context, targetState);
         }
         // setImage(context, );
@@ -170,6 +169,6 @@ function FanAction(inContext, inSettings) {
 
     // Private function to set the state
     function setActionState(inContext, inState) {
-        setImage(inContext, FanIconState[inState]);
+        setImage(inContext, SwingIconState[inState]);
     }
 }

@@ -1,3 +1,10 @@
+/**
+ @file      file.js
+ @brief     Sensibo Plugin
+ @copyright (c) 2022, Abdullah Alhazmy.
+ @license   This source code is licensed under the MIT-style license found in the LICENSE file.
+ */
+
 // convert file to base 64
 const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();

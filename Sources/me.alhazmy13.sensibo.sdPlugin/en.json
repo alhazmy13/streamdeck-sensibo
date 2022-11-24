@@ -26,6 +26,14 @@
     "Name": "Mode",
     "Tooltip": "Change the mode of your air Conditioner."
   },
+  "me.alhazmy13.sensibo.swing": {
+    "Name": "Swing",
+    "Tooltip": "Change the swing state of your air conditioner."
+  },
+  "me.alhazmy13.sensibo.horizontal_swing": {
+    "Name": "Horizontal Swing",
+    "Tooltip": "Change the horizontal swing state of your air conditioner."
+  },
   "Localization": {
     "Sensibo": {
       "ApiKey": "API Key",
@@ -60,7 +68,7 @@
       },
       "Save": {
         "Title": "Api key Added",
-        "Description": "The key has been saved sucessfully.",
+        "Description": "The key has been saved successfully.",
         "Save": "Done"
       }
     }

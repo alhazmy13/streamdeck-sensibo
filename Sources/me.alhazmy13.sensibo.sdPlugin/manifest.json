@@ -48,6 +48,28 @@
       ],
       "Tooltip": "Change the mode of your air conditioner.",
       "UUID": "me.alhazmy13.sensibo.mode"
+    },
+    {
+      "Icon": "plugin/images/actions/swing",
+      "Name": "Swing",
+      "States": [
+        {
+          "Image": "plugin/images/icons/swing"
+        }
+      ],
+      "Tooltip": "Change the swing state of your air conditioner.",
+      "UUID": "me.alhazmy13.sensibo.swing"
+    },
+    {
+      "Icon": "plugin/images/actions/swing_horizontal",
+      "Name": "Horizontal Swing",
+      "States": [
+        {
+          "Image": "plugin/images/icons/swing_horizontal"
+        }
+      ],
+      "Tooltip": "Change the horizontal swing of your air conditioner.",
+      "UUID": "me.alhazmy13.sensibo.horizontal-swing"
     }
   ],
   "SDKVersion": 2,
@@ -60,7 +82,7 @@
   "CategoryIcon": "plugin/images/actions/category",
   "PropertyInspectorPath": "sensibo/index.html",
   "URL": "https://github.com/alhazmy13/streamdeck-sensibo",
-  "Version": "1.1.0",
+  "Version": "1.1.1",
   "DefaultWindowSize": [
     500,
     650

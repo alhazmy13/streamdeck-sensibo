@@ -82,7 +82,36 @@ function Api(key = null) {
                         result.forEach(obj => {
 
                             if (type === 'ac') {
-                                objects.push(new AC(instance, obj['id'], obj['room']['name'], obj['room']['uid'], obj['acState']['on'], obj['acState']['targetTemperature'], obj['acState']['fanLevel'], obj['acState']['mode'],  obj['acState']['temperatureUnit']));
+                                let id = obj['id'];
+                                let name = obj['room']['name'];
+                                let uid = obj['room']['uid'];
+                                let power = obj['acState']['on'];
+                                let temperature = null;
+                                if ('targetTemperature' in obj['acState']) {
+                                    temperature = obj['acState']['targetTemperature'];
+                                }
+                                let fanLevel = null;
+                                if ('fanLevel' in obj['acState']) {
+                                    fanLevel = obj['acState']['fanLevel'];
+                                }
+                                let mode = null;
+                                if ('mode' in obj['acState']) {
+                                    mode = obj['acState']['mode'];
+                                }
+                                let temperatureUnit = null;
+                                if ('temperatureUnit' in obj['acState']) {
+                                    temperatureUnit = obj['acState']['temperatureUnit'];
+                                }
+                                let swing = null;
+                                if ('swing' in obj['acState']) {
+                                    swing = obj['acState']['swing'];
+                                }
+                                let horizontalSwing = null;
+                                if ('horizontalSwing' in obj['acState']) {
+                                    horizontalSwing = obj['acState']['horizontalSwing'];
+                                }
+
+                                objects.push(new AC(instance, id, name, uid, power, temperature, fanLevel, mode, temperatureUnit, swing, horizontalSwing));
                             }
                         });
 
@@ -237,7 +266,17 @@ function SensiboAPI(key = null, id = null, name = null, uid = null) {
 
 
 // Prototype which represents an illumination
-function IlApi(key = null, id = null, name = null, uid = null, power = null, temperature = null, fanLevel = null, mode = null, temperatureUnit= null) {
+function IlApi(key = null,
+               id = null,
+               name = null,
+               uid = null,
+               power = null,
+               temperature = null,
+               fanLevel = null,
+               mode = null,
+               temperatureUnit = null,
+               swing = null,
+               horizontalSwing = null) {
     // Init IlApi
     let instance = this;
 
@@ -272,6 +311,14 @@ function IlApi(key = null, id = null, name = null, uid = null, power = null, tem
         return temperatureUnit;
     };
 
+    this.getSwing = () => {
+        return swing;
+    };
+
+    this.getHorizontalSwing = () => {
+        return horizontalSwing;
+    };
+
     // Public function to retrieve the temperature
     this.getTemperature = () => {
         return temperature;
@@ -295,14 +342,33 @@ function IlApi(key = null, id = null, name = null, uid = null, power = null, tem
     this.setTemperature = (temperature, callback) => {
         // Define state object
         instance.setState({property: 'targetTemperature', value: temperature}, callback);
+    };
 
+    this.setSwing = (temperature, callback) => {
+        // Define state object
+        instance.setState({property: 'swing', value: temperature}, callback);
+    };
+
+    this.setHorizontalSwing = (temperature, callback) => {
+        // Define state object
+        instance.setState({property: 'horizontalSwing', value: temperature}, callback);
     };
 }
 
-// Prototype which represents a ac
-function AC(key = null, id = null, name = null, uid = null, power = null, temperature = null, fanLevel = null, mode = null, temperatureUnit = null) {
+// Prototype which represents ac
+function AC(key = null,
+            id = null,
+            name = null,
+            uid = null,
+            power = null,
+            temperature = null,
+            fanLevel = null,
+            mode = null,
+            temperatureUnit = null,
+            swing = null,
+            horizontalSwing = null) {
     // Inherit from IlApi
-    IlApi.call(this, key, id, name, uid, power, temperature, fanLevel, mode, temperatureUnit);
+    IlApi.call(this, key, id, name, uid, power, temperature, fanLevel, mode, temperatureUnit, swing, horizontalSwing);
     // Set the URL
     this.setURL(`https://home.sensibo.com/api/v2/pods/${id}/acStates`);
 }
