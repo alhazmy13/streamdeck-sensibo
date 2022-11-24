@@ -110,7 +110,9 @@ function Cache(context = null) {
                     fanLevel: inAc.getFanLevel(),
                     power: inAc.getPower(),
                     temperature: inAc.getTemperature(),
-                    temperatureUnit: inAc.getTemperatureUnit()
+                    temperatureUnit: inAc.getTemperatureUnit(),
+                    swing: inAc.getSwing(),
+                    horizontalSwing: inAc.getHorizontalSwing(),
                 };
             });
 

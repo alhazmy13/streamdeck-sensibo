@@ -1,9 +1,9 @@
 /**
-@file      action.js
-@brief     Sensibo Plugin
-@copyright (c) 2022, Abdullah Alhazmy.
-@license   This source code is licensed under the MIT-style license found in the LICENSE file.
-*/
+ @file      action.js
+ @brief     Sensibo Plugin
+ @copyright (c) 2022, Abdullah Alhazmy.
+ @license   This source code is licensed under the MIT-style license found in the LICENSE file.
+ */
 
 // Prototype which represents an action
 function Action(inContext, inSettings) {
@@ -56,15 +56,16 @@ function Action(inContext, inSettings) {
         let action;
         if (instance instanceof PowerAction) {
             action = 'me.alhazmy13.sensibo.power.power';
-        }
-        else if (instance instanceof TemperatureAction) {
+        } else if (instance instanceof TemperatureAction) {
             action = 'me.alhazmy13.sensibo.temperature';
-        }
-        else if (instance instanceof FanAction) {
+        } else if (instance instanceof FanAction) {
             action = 'me.alhazmy13.sensibo.fan';
-        }
-        else if (instance instanceof ModeAction) {
+        } else if (instance instanceof ModeAction) {
             action = 'me.alhazmy13.sensibo.mode';
+        } else if (instance instanceof SwingAction) {
+            action = 'me.alhazmy13.sensibo.swing';
+        } else if (instance instanceof HorizontalSwingAction) {
+            action = 'me.alhazmy13.sensibo.horizontal_swing';
         }
         // If no key is set for this action
         if (!('key' in settings)) {
